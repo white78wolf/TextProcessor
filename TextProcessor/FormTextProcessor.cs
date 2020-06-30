@@ -25,6 +25,7 @@ namespace TextProcessor
                 _ = MessageBox.Show("Ошибка при открытии файла", "Ошибка!");
             }
         }
+
         private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
             try
@@ -55,17 +56,20 @@ namespace TextProcessor
         {
             Close();
         }
+
         private void ToolStripMenuItemInsertTimeStamp_Click(object sender, EventArgs e)
         {
             var selectionStart = richTextBox.SelectionStart + DateTime.Now.ToString().Length;
             richTextBox.Text = richTextBox.Text.Insert(richTextBox.SelectionStart, DateTime.Now.ToString());
             richTextBox.SelectionStart = selectionStart;
         }
+
         private void PatternToReplaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormPatternToReplace formToReplace = new FormPatternToReplace(this);
             formToReplace.Show();
         }
+
         private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
             _ = MessageBox.Show("Программа предназначена\nдля изучения основ работы с Windows Forms.\n" +
