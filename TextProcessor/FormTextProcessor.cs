@@ -10,6 +10,12 @@ namespace TextProcessor
         public FormTextProcessor()
         {
             InitializeComponent();
+
+            openFileDialog.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
+            saveFileDialog.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
+
+            openFileDialog.FileName = "";
+            saveFileDialog.FileName = "";
         }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
@@ -30,7 +36,16 @@ namespace TextProcessor
         {
             try
             {
-                File.WriteAllText(openFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
+                if (openFileDialog.FileName == "" || openFileDialog.FileName == null)
+                {
+                    if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                        return;
+                    File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
+                }                    
+                else
+                    File.WriteAllText(openFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
+
+                MessageBox.Show("Файл сохранён");
             }
             catch
             {
@@ -45,6 +60,7 @@ namespace TextProcessor
             try
             {
                 File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
+                MessageBox.Show("Файл сохранён");
             }
             catch
             {
