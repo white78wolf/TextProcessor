@@ -38,7 +38,7 @@
             this.ToolStripMenuItemSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemInsertTimeStamp = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.PatternToReplaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemPatternToReplace = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip.SuspendLayout();
@@ -52,7 +52,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьФайлToolStripMenuItem,
-            this.PatternToReplaceToolStripMenuItem,
+            this.ToolStripMenuItemPatternToReplace,
             this.ToolStripMenuItemAbout});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -113,13 +113,13 @@
             this.ToolStripMenuItemExit.Text = "Выход";
             this.ToolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItemExit_Click);
             // 
-            // PatternToReplaceToolStripMenuItem
+            // ToolStripMenuItemPatternToReplace
             // 
-            this.PatternToReplaceToolStripMenuItem.Name = "PatternToReplaceToolStripMenuItem";
-            this.PatternToReplaceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.PatternToReplaceToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
-            this.PatternToReplaceToolStripMenuItem.Text = "Найти и заменить";
-            this.PatternToReplaceToolStripMenuItem.Click += new System.EventHandler(this.PatternToReplaceToolStripMenuItem_Click);
+            this.ToolStripMenuItemPatternToReplace.Name = "ToolStripMenuItemPatternToReplace";
+            this.ToolStripMenuItemPatternToReplace.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.ToolStripMenuItemPatternToReplace.Size = new System.Drawing.Size(117, 20);
+            this.ToolStripMenuItemPatternToReplace.Text = "Найти и заменить";
+            this.ToolStripMenuItemPatternToReplace.Click += new System.EventHandler(this.ToolStripMenuItem_ClickPatternToReplace);
             // 
             // ToolStripMenuItemAbout
             // 
@@ -171,7 +171,7 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemExit;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAbout;
         public System.Windows.Forms.RichTextBox richTextBox;
-        private System.Windows.Forms.ToolStripMenuItem PatternToReplaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPatternToReplace;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemInsertTimeStamp;
     }
 }

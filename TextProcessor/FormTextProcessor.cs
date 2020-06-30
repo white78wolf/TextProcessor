@@ -80,7 +80,7 @@ namespace TextProcessor
             richTextBox.SelectionStart = selectionStart;
         }
 
-        private void PatternToReplaceToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_ClickPatternToReplace(object sender, EventArgs e)
         {
             FormPatternToReplace formToReplace = new FormPatternToReplace(this);
             formToReplace.Show();
