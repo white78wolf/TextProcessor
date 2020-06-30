@@ -55,23 +55,21 @@ namespace TextProcessor
         {
             Close();
         }
-
-        private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
-        {
-            _ = MessageBox.Show("Программа предназначена\nдля изучения основ работы с Windows Forms.\n" +
-                "Участник клуба Формулистов\nЦепков А. М. © 2020 год.", "О программе:");
-        }
         private void ToolStripMenuItemInsertTimeStamp_Click(object sender, EventArgs e)
         {
             var selectionStart = richTextBox.SelectionStart + DateTime.Now.ToString().Length;
             richTextBox.Text = richTextBox.Text.Insert(richTextBox.SelectionStart, DateTime.Now.ToString());
             richTextBox.SelectionStart = selectionStart;
         }
-
         private void PatternToReplaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormPatternToReplace formToReplace = new FormPatternToReplace(this);
             formToReplace.Show();
-        }        
+        }
+        private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
+        {
+            _ = MessageBox.Show("Программа предназначена\nдля изучения основ работы с Windows Forms.\n" +
+                "Участник клуба Формулистов\nЦепков А. М. © 2020 год.", "О программе:");
+        }                
     }
 }
