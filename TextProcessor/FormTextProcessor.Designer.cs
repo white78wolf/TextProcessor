@@ -175,6 +175,7 @@
             this.Name = "FormTextProcessor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Текстовый процессор";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTextProcessor_FormClosing);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);

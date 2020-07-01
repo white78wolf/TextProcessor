@@ -10,7 +10,8 @@ namespace TextProcessor
     public partial class FormTextProcessor : Form
     {
         static string regKeyName = "Software\\TextProcessor";
-        string lastDocument = "";        
+        string lastDocument = "";
+        float fontSize = 10;
         public FormTextProcessor()
         {
             InitializeComponent();
@@ -21,26 +22,23 @@ namespace TextProcessor
             openFileDialog.FileName = "";
             saveFileDialog.FileName = "";
 
-            RegistryKey rk = null;
-            float fontSize;
+            RegistryKey rk = null;            
             try
             {
                 rk = Registry.CurrentUser.OpenSubKey(regKeyName);
                 if (rk != null)
                 {
-                    if (rk.GetValue("LastDocument") != null && rk.GetValue("LastDocumentFontSize") != null)
+                    if (rk.GetValue("LastDocument") != null 
+                        && rk.GetValue("LastDocumentFontSize") != null)
                     {
-                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));
                         lastDocument = (string)rk.GetValue("LastDocument");
-                        richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
-                        comboBox.SelectedItem = (string)rk.GetValue("LastDocumentFontSize");
-                        richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
+                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));                        
                     }
-                    else
-                    {
-                        lastDocument = "";
-                        richTextBox.Font = new Font(richTextBox.Font.Name, 7);
-                    }                   
+                    
+                    richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+                    richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
+
+                    comboBox.SelectedItem = fontSize.ToString();
                 }
             }
             finally
@@ -102,20 +100,6 @@ namespace TextProcessor
 
         private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
         {
-            RegistryKey rk = null;
-            try
-            {
-                rk = Registry.CurrentUser.CreateSubKey(regKeyName);
-                if (rk == null) return;
-
-                rk.SetValue("LastDocument", lastDocument);
-                rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);
-            }
-            finally
-            {
-                if (rk != null) rk.Close();
-            }
-
             Close();
         }
 
@@ -141,6 +125,31 @@ namespace TextProcessor
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             richTextBox.Font = new Font(richTextBox.Font.Name, Convert.ToSingle(comboBox.SelectedItem));
+        }
+
+        private void FormTextProcessor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Сохранить изменения?", "Уведомление", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                RegistryKey rk = null;
+                try
+                {
+                    rk = Registry.CurrentUser.CreateSubKey(regKeyName);
+                    if (rk == null) return;
+
+                    rk.SetValue("LastDocument", lastDocument);
+                    rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);
+                }
+                finally
+                {
+                    if (rk != null) rk.Close();
+                }
+            }
+            if (result == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
         }
     }    
 }
