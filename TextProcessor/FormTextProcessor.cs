@@ -38,6 +38,8 @@ namespace TextProcessor
                     richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
                     richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
 
+                    Text = lastDocument;
+
                     comboBox.SelectedItem = fontSize.ToString();
                 }
             }
@@ -55,6 +57,7 @@ namespace TextProcessor
             {                
                 richTextBox.Text = File.ReadAllText(openFileDialog.FileName, Encoding.UTF8);
                 lastDocument = openFileDialog.FileName;
+                Text = openFileDialog.FileName;
             }
             catch
             {
@@ -90,6 +93,9 @@ namespace TextProcessor
             try
             {
                 File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
+                richTextBox.Text = File.ReadAllText(saveFileDialog.FileName, Encoding.UTF8);
+                Text = saveFileDialog.FileName;
+                lastDocument = saveFileDialog.FileName;
                 MessageBox.Show("Файл сохранён");
             }
             catch
