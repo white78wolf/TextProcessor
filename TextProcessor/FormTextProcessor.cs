@@ -3,13 +3,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.Win32;
+using System.Drawing;
 
 namespace TextProcessor
 {
     public partial class FormTextProcessor : Form
     {
         static string regKeyName = "Software\\TextProcessor";
-        string lastDocument = "";
+        string lastDocument = "";        
         public FormTextProcessor()
         {
             InitializeComponent();
@@ -21,19 +22,31 @@ namespace TextProcessor
             saveFileDialog.FileName = "";
 
             RegistryKey rk = null;
+            float fontSize;
             try
             {
                 rk = Registry.CurrentUser.OpenSubKey(regKeyName);
                 if (rk != null)
                 {
-                    lastDocument = (string)rk.GetValue("LastDocument");
-                    richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+                    if (rk.GetValue("LastDocument") != null && rk.GetValue("LastDocumentFontSize") != null)
+                    {
+                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));
+                        lastDocument = (string)rk.GetValue("LastDocument");
+                        richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+                        comboBox.SelectedItem = (string)rk.GetValue("LastDocumentFontSize");
+                        richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
+                    }
+                    else
+                    {
+                        lastDocument = "";
+                        richTextBox.Font = new Font(richTextBox.Font.Name, 7);
+                    }                   
                 }
             }
             finally
             {
                 if (rk != null) rk.Close();
-            }
+            }            
         }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
@@ -95,7 +108,8 @@ namespace TextProcessor
                 rk = Registry.CurrentUser.CreateSubKey(regKeyName);
                 if (rk == null) return;
 
-                rk.SetValue("LastDocument", lastDocument);                
+                rk.SetValue("LastDocument", lastDocument);
+                rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);
             }
             finally
             {
@@ -122,6 +136,11 @@ namespace TextProcessor
         {
             _ = MessageBox.Show("Программа предназначена\nдля изучения основ работы с Windows Forms.\n" +
                 "Участник клуба Формулистов\nЦепков А. М. © 2020 год.", "О программе:");
-        }                
-    }
+        }
+
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBox.Font = new Font(richTextBox.Font.Name, Convert.ToSingle(comboBox.SelectedItem));
+        }
+    }    
 }

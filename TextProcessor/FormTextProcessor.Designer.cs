@@ -41,6 +41,7 @@
             this.ToolStripMenuItemPatternToReplace = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
+            this.comboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,17 +135,38 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBox.Location = new System.Drawing.Point(0, 27);
+            this.richTextBox.Location = new System.Drawing.Point(-3, 30);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(464, 386);
+            this.richTextBox.Size = new System.Drawing.Size(467, 385);
             this.richTextBox.TabIndex = 9;
             this.richTextBox.Text = "";
+            // 
+            // comboBox
+            // 
+            this.comboBox.FormattingEnabled = true;
+            this.comboBox.Items.AddRange(new object[] {
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.comboBox.Location = new System.Drawing.Point(271, 3);
+            this.comboBox.Name = "comboBox";
+            this.comboBox.Size = new System.Drawing.Size(39, 21);
+            this.comboBox.TabIndex = 10;
+            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
             // 
             // FormTextProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 413);
+            this.Controls.Add(this.comboBox);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -173,6 +195,7 @@
         public System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPatternToReplace;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemInsertTimeStamp;
+        private System.Windows.Forms.ComboBox comboBox;
     }
 }
 
