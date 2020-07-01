@@ -2,11 +2,14 @@
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Win32;
 
 namespace TextProcessor
 {
     public partial class FormTextProcessor : Form
     {
+        static string regKeyName = "Software\\TextProcessor";
+        string lastDocument = "";
         public FormTextProcessor()
         {
             InitializeComponent();
@@ -16,6 +19,21 @@ namespace TextProcessor
 
             openFileDialog.FileName = "";
             saveFileDialog.FileName = "";
+
+            RegistryKey rk = null;
+            try
+            {
+                rk = Registry.CurrentUser.OpenSubKey(regKeyName);
+                if (rk != null)
+                {
+                    lastDocument = (string)rk.GetValue("LastDocument");
+                    richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+                }
+            }
+            finally
+            {
+                if (rk != null) rk.Close();
+            }
         }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
@@ -23,8 +41,9 @@ namespace TextProcessor
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
                 return;
             try
-            {
+            {                
                 richTextBox.Text = File.ReadAllText(openFileDialog.FileName, Encoding.UTF8);
+                lastDocument = openFileDialog.FileName;
             }
             catch
             {
@@ -70,6 +89,19 @@ namespace TextProcessor
 
         private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
         {
+            RegistryKey rk = null;
+            try
+            {
+                rk = Registry.CurrentUser.CreateSubKey(regKeyName);
+                if (rk == null) return;
+
+                rk.SetValue("LastDocument", lastDocument);                
+            }
+            finally
+            {
+                if (rk != null) rk.Close();
+            }
+
             Close();
         }
 
