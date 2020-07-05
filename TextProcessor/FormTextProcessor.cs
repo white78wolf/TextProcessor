@@ -29,12 +29,14 @@ namespace TextProcessor
                 rk = Registry.CurrentUser.OpenSubKey(regKeyName);
                 if (rk != null)
                 {
+                    if (rk.GetValue("LastDocument") != null)
+                        lastDocument = (string)rk.GetValue("LastDocument");
+
                     if (rk.GetValue("LastDocumentFontSize") != null)
-                    {
-                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));
-                    }
-                    lastDocument = (string)rk.GetValue("LastDocument") ?? lastDocument;                    
-                    fontFamily = (string)rk.GetValue("LastDocumentFontFamily") ?? fontFamily;
+                        fontSize = (float)rk.GetValue("LastDocumentFontSize");
+
+                    if (rk.GetValue("LastDocumentFontFamily") != null)
+                        fontFamily = (string)rk.GetValue("LastDocumentFontFamily");                    
                 }
             }
             finally
@@ -48,7 +50,7 @@ namespace TextProcessor
             Text = lastDocument;
 
             comboBoxFontSize.SelectedItem = fontSize.ToString();
-            comboBoxFontFamily.SelectedItem = fontFamily.ToString();
+            comboBoxFontFamily.SelectedItem = fontFamily;
         }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
