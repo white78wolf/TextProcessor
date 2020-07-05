@@ -41,7 +41,8 @@
             this.ToolStripMenuItemPatternToReplace = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
-            this.comboBox = new System.Windows.Forms.ComboBox();
+            this.comboBoxFontSize = new System.Windows.Forms.ComboBox();
+            this.comboBoxFontFamily = new System.Windows.Forms.ComboBox();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -141,10 +142,10 @@
             this.richTextBox.TabIndex = 9;
             this.richTextBox.Text = "";
             // 
-            // comboBox
+            // comboBoxFontSize
             // 
-            this.comboBox.FormattingEnabled = true;
-            this.comboBox.Items.AddRange(new object[] {
+            this.comboBoxFontSize.FormattingEnabled = true;
+            this.comboBoxFontSize.Items.AddRange(new object[] {
             "7",
             "8",
             "9",
@@ -155,18 +156,37 @@
             "14",
             "15",
             "16"});
-            this.comboBox.Location = new System.Drawing.Point(271, 3);
-            this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(39, 21);
-            this.comboBox.TabIndex = 10;
-            this.comboBox.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SelectedIndexChanged);
+            this.comboBoxFontSize.Location = new System.Drawing.Point(271, 3);
+            this.comboBoxFontSize.Name = "comboBoxFontSize";
+            this.comboBoxFontSize.Size = new System.Drawing.Size(39, 21);
+            this.comboBoxFontSize.TabIndex = 10;
+            this.comboBoxFontSize.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFontSize_SelectedIndexChanged);
+            // 
+            // comboBoxFontFamily
+            // 
+            this.comboBoxFontFamily.FormattingEnabled = true;
+            this.comboBoxFontFamily.Items.AddRange(new object[] {
+            "Arial",
+            "Comic Sans MS",
+            "Georgia",
+            "Lucida Console",
+            "Segoe UI",
+            "Tahoma",
+            "Times New Roman",
+            "Verdana"});
+            this.comboBoxFontFamily.Location = new System.Drawing.Point(317, 2);
+            this.comboBoxFontFamily.Name = "comboBoxFontFamily";
+            this.comboBoxFontFamily.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxFontFamily.TabIndex = 11;
+            this.comboBoxFontFamily.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFontFamily_SelectedIndexChanged);
             // 
             // FormTextProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 413);
-            this.Controls.Add(this.comboBox);
+            this.Controls.Add(this.comboBoxFontFamily);
+            this.Controls.Add(this.comboBoxFontSize);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -196,7 +216,8 @@
         public System.Windows.Forms.RichTextBox richTextBox;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemPatternToReplace;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemInsertTimeStamp;
-        private System.Windows.Forms.ComboBox comboBox;
+        private System.Windows.Forms.ComboBox comboBoxFontSize;
+        private System.Windows.Forms.ComboBox comboBoxFontFamily;
     }
 }
 

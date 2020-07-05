@@ -40,7 +40,7 @@ namespace TextProcessor
 
                     Text = lastDocument;
 
-                    comboBox.SelectedItem = fontSize.ToString();
+                    comboBoxFontSize.SelectedItem = fontSize.ToString();
                 }
             }
             finally
@@ -128,9 +128,13 @@ namespace TextProcessor
                 "Участник клуба Формулистов\nЦепков А. М. © 2020 год.", "О программе:");
         }
 
-        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxFontSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox.Font = new Font(richTextBox.Font.Name, Convert.ToSingle(comboBox.SelectedItem));
+            richTextBox.Font = new Font(richTextBox.Font.Name, Convert.ToSingle(comboBoxFontSize.SelectedItem));
+        }
+        private void ComboBoxFontFamily_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            richTextBox.Font = new Font(Convert.ToString(comboBoxFontFamily.SelectedItem), richTextBox.Font.Size);
         }
 
         private void FormTextProcessor_FormClosing(object sender, FormClosingEventArgs e)
@@ -157,6 +161,6 @@ namespace TextProcessor
             {
                 e.Cancel = true;
             }
-        }
+        }        
     }    
 }
