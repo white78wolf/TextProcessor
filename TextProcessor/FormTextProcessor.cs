@@ -33,7 +33,7 @@ namespace TextProcessor
                         lastDocument = (string)rk.GetValue("LastDocument");
 
                     if (rk.GetValue("LastDocumentFontSize") != null)
-                        fontSize = (float)rk.GetValue("LastDocumentFontSize");
+                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));
 
                     if (rk.GetValue("LastDocumentFontFamily") != null)
                         fontFamily = (string)rk.GetValue("LastDocumentFontFamily");                    
