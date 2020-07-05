@@ -72,16 +72,8 @@ namespace TextProcessor
         private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
             try
-            {
-                if (openFileDialog.FileName == "" || openFileDialog.FileName == null)
-                {
-                    if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
-                        return;
-                    File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
-                }                    
-                else
-                    File.WriteAllText(openFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
-
+            {               
+                File.WriteAllText(lastDocument, richTextBox.Text, Encoding.UTF8);
                 MessageBox.Show("Файл сохранён");
             }
             catch
