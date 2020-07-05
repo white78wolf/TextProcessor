@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
-using Microsoft.Win32;
+using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace TextProcessor
 {
