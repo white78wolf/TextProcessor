@@ -11,6 +11,7 @@ namespace TextProcessor
     {
         static string regKeyName = "Software\\TextProcessor";
         string lastDocument = "";
+        string fontFamily = "Lucida Console";
         float fontSize = 10;
         public FormTextProcessor()
         {
@@ -42,7 +43,7 @@ namespace TextProcessor
             }
 
             richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
-            richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
+            richTextBox.Font = new Font(fontFamily, fontSize);
 
             Text = lastDocument;
 
