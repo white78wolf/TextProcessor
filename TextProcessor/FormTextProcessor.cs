@@ -33,20 +33,20 @@ namespace TextProcessor
                     {
                         lastDocument = (string)rk.GetValue("LastDocument");
                         fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));                        
-                    }
-                    
-                    richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
-                    richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
-
-                    Text = lastDocument;
-
-                    comboBoxFontSize.SelectedItem = fontSize.ToString();
+                    }                   
                 }
             }
             finally
             {
                 if (rk != null) rk.Close();
-            }            
+            }
+
+            richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+            richTextBox.Font = new Font(richTextBox.Font.Name, fontSize);
+
+            Text = lastDocument;
+
+            comboBoxFontSize.SelectedItem = fontSize.ToString();
         }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
