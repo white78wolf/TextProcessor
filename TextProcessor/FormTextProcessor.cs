@@ -29,12 +29,12 @@ namespace TextProcessor
                 rk = Registry.CurrentUser.OpenSubKey(regKeyName);
                 if (rk != null)
                 {
-                    if (rk.GetValue("LastDocument") != null 
-                        && rk.GetValue("LastDocumentFontSize") != null)
+                    if (rk.GetValue("LastDocumentFontSize") != null)
                     {
-                        lastDocument = (string)rk.GetValue("LastDocument");
-                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));                        
-                    }                   
+                        fontSize = Convert.ToSingle(rk.GetValue("LastDocumentFontSize"));
+                    }
+                    lastDocument = (string)rk.GetValue("LastDocument") ?? lastDocument;                    
+                    fontFamily = (string)rk.GetValue("LastDocumentFontFamily") ?? fontFamily;
                 }
             }
             finally
@@ -48,6 +48,7 @@ namespace TextProcessor
             Text = lastDocument;
 
             comboBoxFontSize.SelectedItem = fontSize.ToString();
+            comboBoxFontFamily.SelectedItem = fontFamily.ToString();
         }
 
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
@@ -133,6 +134,7 @@ namespace TextProcessor
         {
             richTextBox.Font = new Font(richTextBox.Font.Name, Convert.ToSingle(comboBoxFontSize.SelectedItem));
         }
+
         private void ComboBoxFontFamily_SelectedIndexChanged(object sender, EventArgs e)
         {
             richTextBox.Font = new Font(Convert.ToString(comboBoxFontFamily.SelectedItem), richTextBox.Font.Size);
@@ -152,6 +154,7 @@ namespace TextProcessor
 
                     rk.SetValue("LastDocument", lastDocument);
                     rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);
+                    rk.SetValue("LastDocumentFontFamily", richTextBox.Font.FontFamily.Name);
                 }
                 finally
                 {
