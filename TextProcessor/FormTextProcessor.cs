@@ -106,11 +106,12 @@ namespace TextProcessor
         }
 
         private void ToolStripMenuItemInsertTimeStamp_Click(object sender, EventArgs e)
-        {            
-            richTextBox.Cut(); // Just in case if you need to replace a selection by timestamp
-            Clipboard.Clear();
+        {
+            var selectionStart = richTextBox.SelectionStart;
+            richTextBox.Text = richTextBox.Text.Remove(selectionStart, richTextBox.SelectionLength);
+            richTextBox.SelectionStart = selectionStart;
 
-            var selectionStart = richTextBox.SelectionStart + DateTime.Now.ToString().Length;
+            selectionStart = richTextBox.SelectionStart + DateTime.Now.ToString().Length;
             richTextBox.Text = richTextBox.Text.Insert(richTextBox.SelectionStart, DateTime.Now.ToString());
             richTextBox.SelectionStart = selectionStart;
         }
