@@ -46,8 +46,8 @@ namespace TextProcessor
 
             richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
             richTextBox.Font = new Font(fontFamily, fontSize);
-
-            Text = lastDocument;
+            
+            Text = Path.GetFileNameWithoutExtension(lastDocument);
 
             comboBoxFontSize.SelectedItem = fontSize.ToString();
             comboBoxFontFamily.SelectedItem = fontFamily;
@@ -60,8 +60,8 @@ namespace TextProcessor
             try
             {                
                 richTextBox.Text = File.ReadAllText(openFileDialog.FileName, Encoding.UTF8);
-                lastDocument = openFileDialog.FileName;
-                Text = openFileDialog.FileName;
+                lastDocument = openFileDialog.FileName;                
+                Text = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
             }
             catch
             {
@@ -90,7 +90,7 @@ namespace TextProcessor
             {
                 File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
                 richTextBox.Text = File.ReadAllText(saveFileDialog.FileName, Encoding.UTF8);
-                Text = saveFileDialog.FileName;
+                Text = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
                 lastDocument = saveFileDialog.FileName;
                 MessageBox.Show("Файл сохранён");
             }

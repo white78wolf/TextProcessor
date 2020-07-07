@@ -43,7 +43,7 @@
             this.textPattern.Size = new System.Drawing.Size(182, 20);
             this.textPattern.TabIndex = 0;            
             this.textPattern.Leave += new System.EventHandler(this.TextPattern_Leave);
-            this.textPattern.GotFocus += new System.EventHandler(this.TextPattern_GotFocus); ;
+            this.textPattern.GotFocus += new System.EventHandler(this.TextPattern_GotFocus);
             // 
             // textReplace
             // 
