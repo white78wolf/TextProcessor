@@ -24,6 +24,8 @@ namespace TextProcessor
             if (textPattern.Text == "")
                 return;
             mainForm.richTextBox.Text = mainForm.richTextBox.Text.Replace(textPattern.Text, textReplace.Text);
+
+            Close();
         }
 
         private void TextPattern_GotFocus(object sender, EventArgs e)
