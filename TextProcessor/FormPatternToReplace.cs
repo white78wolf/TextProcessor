@@ -7,6 +7,7 @@ namespace TextProcessor
     public partial class FormPatternToReplace : Form
     {
         FormTextProcessor mainForm;
+
         public FormPatternToReplace()
         {
             InitializeComponent();
@@ -23,6 +24,12 @@ namespace TextProcessor
             if (textPattern.Text == "")
                 return;
             mainForm.richTextBox.Text = mainForm.richTextBox.Text.Replace(textPattern.Text, textReplace.Text);
+        }
+
+        private void TextPattern_GotFocus(object sender, EventArgs e)
+        {
+            mainForm.richTextBox.Text = mainForm.richTextBox.Text; // discard previous selection in text
+            textPattern.SelectAll();
         }
 
         private void TextPattern_Leave(object sender, EventArgs e)
