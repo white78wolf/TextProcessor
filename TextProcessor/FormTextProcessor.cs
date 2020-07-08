@@ -4,15 +4,19 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Linq;
 
 namespace TextProcessor
 {
     public partial class FormTextProcessor : Form
     {
         static string regKeyName = "Software\\TextProcessor";
-        string lastDocument = "";
+        static string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        string lastDocument = defaultPath + "\\Новый документ.txt";
+            
         string fontFamily = "Lucida Console";
         float fontSize = 10;
+
         public FormTextProcessor()
         {
             InitializeComponent();
@@ -44,11 +48,18 @@ namespace TextProcessor
                 if (rk != null) rk.Close();
             }
 
-            richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
-            richTextBox.Font = new Font(fontFamily, fontSize);
-            
-            Text = Path.GetFileNameWithoutExtension(lastDocument);
+            try
+            {
+                richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка чтения файла", "Ошибка!");
+                richTextBox.Text = "";
+            }
 
+            richTextBox.Font = new Font(fontFamily, fontSize);            
+            Text = Path.GetFileNameWithoutExtension(lastDocument);
             comboBoxFontSize.SelectedItem = fontSize.ToString();
             comboBoxFontFamily.SelectedItem = fontFamily;
         }
@@ -69,10 +80,25 @@ namespace TextProcessor
             }
         }
 
+        private void ToolStripMenuItemNewDocument_Click(object sender, EventArgs e)
+        {
+            lastDocument = defaultPath + "\\Новый документ.txt";
+            richTextBox.Text = "";
+            Text = "Новый документ";
+        }
+
         private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
         {
+            if (lastDocument == defaultPath + "\\Новый документ.txt")
+            {
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                    return;
+                lastDocument = saveFileDialog.FileName;
+                Text = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+            }
+
             try
-            {               
+            {
                 File.WriteAllText(lastDocument, richTextBox.Text, Encoding.UTF8);
                 MessageBox.Show("Файл сохранён");
             }
@@ -148,7 +174,15 @@ namespace TextProcessor
                 try
                 {
                     rk = Registry.CurrentUser.CreateSubKey(regKeyName);
-                    if (rk == null) return;
+                    if (rk == null) return;                    
+
+                    if (lastDocument == defaultPath + "\\Новый документ.txt" && !Directory.EnumerateFiles(defaultPath + "\\", "Новый документ.txt").Any())
+                    {
+                        if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                            return;
+                        lastDocument = saveFileDialog.FileName;
+                        File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);                        
+                    }
 
                     rk.SetValue("LastDocument", lastDocument);
                     rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);

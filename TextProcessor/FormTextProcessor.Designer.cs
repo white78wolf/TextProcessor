@@ -43,6 +43,7 @@
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.comboBoxFontSize = new System.Windows.Forms.ComboBox();
             this.comboBoxFontFamily = new System.Windows.Forms.ComboBox();
+            this.ToolStripMenuItemNewDocument = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +67,7 @@
             // 
             this.открытьФайлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemOpen,
+            this.ToolStripMenuItemNewDocument,
             this.ToolStripMenuItemSave,
             this.ToolStripMenuItemSaveAs,
             this.ToolStripMenuItemInsertTimeStamp,
@@ -180,6 +182,14 @@
             this.comboBoxFontFamily.TabIndex = 11;
             this.comboBoxFontFamily.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFontFamily_SelectedIndexChanged);
             // 
+            // ToolStripMenuItemNewDocument
+            // 
+            this.ToolStripMenuItemNewDocument.Name = "ToolStripMenuItemNewDocument";
+            this.ToolStripMenuItemNewDocument.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.ToolStripMenuItemNewDocument.Size = new System.Drawing.Size(236, 22);
+            this.ToolStripMenuItemNewDocument.Text = "Новый документ";
+            this.ToolStripMenuItemNewDocument.Click += new System.EventHandler(this.ToolStripMenuItemNewDocument_Click);
+            // 
             // FormTextProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +228,7 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemInsertTimeStamp;
         private System.Windows.Forms.ComboBox comboBoxFontSize;
         private System.Windows.Forms.ComboBox comboBoxFontFamily;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemNewDocument;
     }
 }
 
