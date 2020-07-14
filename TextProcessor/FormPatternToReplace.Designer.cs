@@ -38,15 +38,17 @@
             // 
             // textPattern
             // 
+            this.textPattern.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textPattern.Location = new System.Drawing.Point(24, 27);
             this.textPattern.Name = "textPattern";
             this.textPattern.Size = new System.Drawing.Size(182, 20);
-            this.textPattern.TabIndex = 0;            
-            this.textPattern.Leave += new System.EventHandler(this.TextPattern_Leave);
+            this.textPattern.TabIndex = 0;
             this.textPattern.GotFocus += new System.EventHandler(this.TextPattern_GotFocus);
+            this.textPattern.Leave += new System.EventHandler(this.TextPattern_Leave);
             // 
             // textReplace
             // 
+            this.textReplace.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textReplace.Location = new System.Drawing.Point(23, 79);
             this.textReplace.Name = "textReplace";
             this.textReplace.Size = new System.Drawing.Size(183, 20);

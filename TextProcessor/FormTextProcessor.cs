@@ -13,7 +13,6 @@ namespace TextProcessor
         static string regKeyName = "Software\\TextProcessor";
         static string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         string lastDocument = defaultPath + "\\Новый документ.txt";
-            
         string fontFamily = "Lucida Console";
         float fontSize = 10;
 
@@ -64,6 +63,14 @@ namespace TextProcessor
             comboBoxFontFamily.SelectedItem = fontFamily;
         }
 
+        // Menu items group "File"
+        private void ToolStripMenuItemNewDocument_Click(object sender, EventArgs e)
+        {
+            lastDocument = defaultPath + "\\Новый документ.txt";
+            richTextBox.Text = "";
+            Text = "Новый документ";
+        }
+
         private void ToolStripMenuItemOpen_Click(object sender, EventArgs e)
         {            
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
@@ -79,12 +86,15 @@ namespace TextProcessor
                 _ = MessageBox.Show("Ошибка при открытии файла", "Ошибка!");
             }
         }
-
-        private void ToolStripMenuItemNewDocument_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemInsertTimeStamp_Click(object sender, EventArgs e)
         {
-            lastDocument = defaultPath + "\\Новый документ.txt";
-            richTextBox.Text = "";
-            Text = "Новый документ";
+            var selectionStart = richTextBox.SelectionStart;
+            richTextBox.Text = richTextBox.Text.Remove(selectionStart, richTextBox.SelectionLength);
+            richTextBox.SelectionStart = selectionStart;
+
+            selectionStart = richTextBox.SelectionStart + DateTime.Now.ToString().Length;
+            richTextBox.Text = richTextBox.Text.Insert(richTextBox.SelectionStart, DateTime.Now.ToString());
+            richTextBox.SelectionStart = selectionStart;
         }
 
         private void ToolStripMenuItemSave_Click(object sender, EventArgs e)
@@ -129,41 +139,35 @@ namespace TextProcessor
         private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
         {
             Close();
-        }
+        }        
 
-        private void ToolStripMenuItemInsertTimeStamp_Click(object sender, EventArgs e)
-        {
-            var selectionStart = richTextBox.SelectionStart;
-            richTextBox.Text = richTextBox.Text.Remove(selectionStart, richTextBox.SelectionLength);
-            richTextBox.SelectionStart = selectionStart;
-
-            selectionStart = richTextBox.SelectionStart + DateTime.Now.ToString().Length;
-            richTextBox.Text = richTextBox.Text.Insert(richTextBox.SelectionStart, DateTime.Now.ToString());
-            richTextBox.SelectionStart = selectionStart;
-        }
-
+        // Menu item "Find and Replace"
         private void ToolStripMenuItem_ClickPatternToReplace(object sender, EventArgs e)
         {
             FormPatternToReplace formToReplace = new FormPatternToReplace(this);
             formToReplace.Show();
         }
 
+        // Menu item "About"
         private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
             _ = MessageBox.Show("Программа предназначена\nдля изучения основ работы с Windows Forms.\n" +
                 "Участник клуба Формулистов\nЦепков А. М. © 2020 год.", "О программе:");
         }
 
+        // Control "Set font size"
         private void ComboBoxFontSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             richTextBox.Font = new Font(richTextBox.Font.Name, Convert.ToSingle(comboBoxFontSize.SelectedItem));
         }
 
+        // Control "Set font family"
         private void ComboBoxFontFamily_SelectedIndexChanged(object sender, EventArgs e)
         {
             richTextBox.Font = new Font(Convert.ToString(comboBoxFontFamily.SelectedItem), richTextBox.Font.Size);
         }
 
+        // Windows' closing button
         private void FormTextProcessor_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult result = MessageBox.Show("Сохранить изменения?", "Уведомление", 

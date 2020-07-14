@@ -34,6 +34,7 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.открытьФайлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemNewDocument = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemInsertTimeStamp = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +44,6 @@
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.comboBoxFontSize = new System.Windows.Forms.ComboBox();
             this.comboBoxFontFamily = new System.Windows.Forms.ComboBox();
-            this.ToolStripMenuItemNewDocument = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,11 +66,11 @@
             // открытьФайлToolStripMenuItem
             // 
             this.открытьФайлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItemOpen,
             this.ToolStripMenuItemNewDocument,
+            this.ToolStripMenuItemOpen,
+            this.ToolStripMenuItemInsertTimeStamp,
             this.ToolStripMenuItemSave,
             this.ToolStripMenuItemSaveAs,
-            this.ToolStripMenuItemInsertTimeStamp,
             this.ToolStripMenuItemExit});
             this.открытьФайлToolStripMenuItem.Name = "открытьФайлToolStripMenuItem";
             this.открытьФайлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -83,6 +83,14 @@
             this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(236, 22);
             this.ToolStripMenuItemOpen.Text = "Открыть документ";
             this.ToolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
+            // 
+            // ToolStripMenuItemNewDocument
+            // 
+            this.ToolStripMenuItemNewDocument.Name = "ToolStripMenuItemNewDocument";
+            this.ToolStripMenuItemNewDocument.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.ToolStripMenuItemNewDocument.Size = new System.Drawing.Size(236, 22);
+            this.ToolStripMenuItemNewDocument.Text = "Новый документ";
+            this.ToolStripMenuItemNewDocument.Click += new System.EventHandler(this.ToolStripMenuItemNewDocument_Click);
             // 
             // ToolStripMenuItemSave
             // 
@@ -181,14 +189,6 @@
             this.comboBoxFontFamily.Size = new System.Drawing.Size(121, 21);
             this.comboBoxFontFamily.TabIndex = 11;
             this.comboBoxFontFamily.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFontFamily_SelectedIndexChanged);
-            // 
-            // ToolStripMenuItemNewDocument
-            // 
-            this.ToolStripMenuItemNewDocument.Name = "ToolStripMenuItemNewDocument";
-            this.ToolStripMenuItemNewDocument.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.ToolStripMenuItemNewDocument.Size = new System.Drawing.Size(236, 22);
-            this.ToolStripMenuItemNewDocument.Text = "Новый документ";
-            this.ToolStripMenuItemNewDocument.Click += new System.EventHandler(this.ToolStripMenuItemNewDocument_Click);
             // 
             // FormTextProcessor
             // 
