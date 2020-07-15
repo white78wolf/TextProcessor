@@ -23,7 +23,7 @@ namespace TextProcessor
             saveFileDialog.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
 
             openFileDialog.FileName = "";
-            saveFileDialog.FileName = "";
+            saveFileDialog.FileName = "Новый документ";
 
             RegistryKey rk = null;            
             try
@@ -48,7 +48,8 @@ namespace TextProcessor
 
             try
             {
-                richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
+                if (lastDocument != defaultPath + "\\Новый документ.txt")
+                    richTextBox.Text = File.ReadAllText(lastDocument, Encoding.UTF8);
             }
             catch
             {
