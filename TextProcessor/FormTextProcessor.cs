@@ -4,7 +4,6 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using System.Linq;
 
 namespace TextProcessor
 {
@@ -170,37 +169,39 @@ namespace TextProcessor
         // Windows' closing button
         private void FormTextProcessor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult result = MessageBox.Show("Сохранить изменения?", "Уведомление", 
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (richTextBox.Modified)
             {
-                RegistryKey rk = null;
-                try
+                DialogResult result = MessageBox.Show("Сохранить изменения?", "Уведомление",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    rk = Registry.CurrentUser.CreateSubKey(regKeyName);
-                    if (rk == null) return;                    
-
-                    if (lastDocument == defaultPath + "\\Новый документ.txt" && !Directory.EnumerateFiles(defaultPath + "\\", "Новый документ.txt").Any())
+                    if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
                     {
-                        if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
-                            return;
-                        lastDocument = saveFileDialog.FileName;
-                        File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);                        
+                        e.Cancel = true;
+                        return;
                     }
 
-                    rk.SetValue("LastDocument", lastDocument);
-                    rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);
-                    rk.SetValue("LastDocumentFontFamily", richTextBox.Font.FontFamily.Name);
+                    lastDocument = saveFileDialog.FileName;
+                    File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
                 }
-                finally
-                {
-                    if (rk != null) rk.Close();
-                }
+                if (result == DialogResult.Cancel)
+                    e.Cancel = true;
             }
-            if (result == DialogResult.Cancel)
+
+            RegistryKey rk = null;
+            try
             {
-                e.Cancel = true;
+                rk = Registry.CurrentUser.CreateSubKey(regKeyName);
+                if (rk == null) return;                
+
+                rk.SetValue("LastDocument", lastDocument);
+                rk.SetValue("LastDocumentFontSize", richTextBox.Font.Size);
+                rk.SetValue("LastDocumentFontFamily", richTextBox.Font.FontFamily.Name);
             }
+            finally
+            {
+                if (rk != null) rk.Close();
+            }            
         }        
     }    
 }
