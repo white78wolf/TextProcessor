@@ -176,14 +176,16 @@ namespace TextProcessor
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                    if (lastDocument == defaultPath + "\\Новый документ.txt")
                     {
-                        e.Cancel = true;
-                        return;
+                        if (saveFileDialog.ShowDialog() == DialogResult.Cancel)
+                        {
+                            e.Cancel = true;
+                            return;
+                        }                            
+                        lastDocument = saveFileDialog.FileName;                        
                     }
-
-                    lastDocument = saveFileDialog.FileName;
-                    File.WriteAllText(saveFileDialog.FileName, richTextBox.Text, Encoding.UTF8);
+                    File.WriteAllText(lastDocument, richTextBox.Text, Encoding.UTF8);                    
                 }
                 if (result == DialogResult.Cancel)
                     e.Cancel = true;
